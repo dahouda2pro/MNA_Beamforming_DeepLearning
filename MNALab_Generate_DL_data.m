@@ -1,9 +1,4 @@
-% ---------Deep Learning Coordinated Beamforming with DeepMIMO ----------%
-% Author: Ahmed Alkhateeb
-% Date: Sept. 5, 2018 - Updated March 19, 2022
-% Paper: A. Alkhateeb, S. Alex, P. Varkey, Y. Li, Q. Qu and D. Tujkovic, 
-% "Deep Learning Coordinated Beamforming for Highly-Mobile Millimeter Wave 
-% Systems," in IEEE Access, vol. 6, pp. 37328-37348, 2018.
+
 % ---------------------------------------------------------------------- %
 
 % addpath('../DeepMIMOv2/DeepMIMO_functions') % DeepMIMO functions folder
