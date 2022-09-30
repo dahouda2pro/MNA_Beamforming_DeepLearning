@@ -82,8 +82,8 @@ def train(In_train, Out_train, In_test, Out_test,
     return AP_models
 
 # Reading input and output sets generated from MATLAB
-In_set_file=loadmat('DLCB_dataset/DLCB_input.mat')
-Out_set_file=loadmat('DLCB_dataset/DLCB_output.mat')
+In_set_file=loadmat('MNALab_DLBeam_dataset/DLBeam_input.mat')
+Out_set_file=loadmat('MNALab_DLBeam_dataset/DLBeam_output.mat')
 
 In_set=In_set_file['DL_input']
 Out_set=Out_set_file['DL_output']
@@ -140,4 +140,4 @@ for DL_size_ratio in n_DL_size:
         DL_Result['TX'+str(idx+1)+'Opt_Beams']=Out_test[:,idx*num_beams:(idx+1)*num_beams]
 
     DL_Result['user_index']=test_index
-    savemat('DLCB_code_output/DL_Result' + str(count) + '.mat', DL_Result)
+    savemat('MNALab_DLBeam_code_output/DL_Result' + str(count) + '.mat', DL_Result)

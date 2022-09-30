@@ -68,8 +68,8 @@ for t=1:length(params.active_BS)
     DL_output(:,(t-1)*codebook_size+1:t*codebook_size)=squeeze(DL_output_unshaped(t,:,:));
 end
 
-if ~exist('DLCB_dataset', 'dir')
-    mkdir('DLCB_dataset')
+if ~exist('MNALab_DLBeam_dataset', 'dir')
+    mkdir('MNALab_DLBeam_dataset')
 end
-save DLCB_Dataset/DLCB_input DL_input
-save DLCB_Dataset/DLCB_output DL_output
+save MNALab_DLBeam_Dataset/DLCB_input DL_input
+save MNALab_DLBeam_Dataset/DLCB_output DL_output

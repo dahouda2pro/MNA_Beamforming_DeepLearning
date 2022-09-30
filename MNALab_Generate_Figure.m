@@ -3,7 +3,7 @@
 % addpath('../DeepMIMOv2/DeepMIMO_functions') % DeepMIMO functions folder
 addpath(genpath('E:\Datasets\DeepMIMOv2\DeepMIMOv2'))
 addpath('./BF_codebook/')
-params = read_params('CBF_parameters.m');
+params = read_params('MNALab_parameters.m');
 [DeepMIMO_dataset,params] = DeepMIMO_generator(params);
 
 %%
@@ -27,7 +27,7 @@ BW=params.bandwidth*1e9;                                     % Bandwidth in Hz
 
 % Reading the output of the DL code
 for DL_size_point=1:1:num_DL_size_points
-    saved_filename=strcat('DLCB_code_output/DL_Result',num2str(DL_size_point));
+    saved_filename=strcat('MNALab_DLBeam_code_output/DL_Result',num2str(DL_size_point));
     load(saved_filename)
     
     for t=1:1:length(params.active_BS)
