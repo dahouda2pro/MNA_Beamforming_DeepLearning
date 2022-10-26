@@ -3,13 +3,10 @@ import numpy as np
 import keras
 from keras.layers import Dense,Dropout
 from scipy.io import loadmat, savemat
-import matplotlib.pyplot as pltpip
+import matplotlib.pyplot as plt
 
 # Model training function
-def train(In_train, Out_train, In_test, Out_test,
-          epochs, batch_size,dr,
-          num_hidden_layers, nodes_per_layer,
-          loss_fn,n_BS,n_beams):
+def train(In_train, Out_train, In_test, Out_test, epochs, batch_size,dr, num_hidden_layers, nodes_per_layer, loss_fn,n_BS,n_beams):
     
     in_shp = list(In_train.shape[1:])
 
@@ -30,7 +27,7 @@ def train(In_train, Out_train, In_test, Out_test,
         model.compile(loss=loss_fn, optimizer='adam', metrics=['accuracy'])
         model.summary()
         
-        filepath = r'C:/Users/MWAMBA/DeepLearning-CoordinatedBeamforming/DLCB_code_output/Results_mmWave_ML_BS' + idx_str
+        filepath = r'C:/Users/MWAMBA/MNA_Beamforming_DeepLearning/MNALab_DLBeam_code_output/Results_mmWave_ML_BS' + idx_str
         
         
         if not os.path.exists(filepath):
@@ -82,8 +79,8 @@ def train(In_train, Out_train, In_test, Out_test,
     return AP_models
 
 # Reading input and output sets generated from MATLAB
-In_set_file=loadmat('MNALab_DLBeam_dataset/DLBeam_input.mat')
-Out_set_file=loadmat('MNALab_DLBeam_dataset/DLBeam_output.mat')
+In_set_file=loadmat('MNALab_DLBeam_dataset/DLCB_input.mat')
+Out_set_file=loadmat('MNALab_DLBeam_dataset/DLCB_output.mat')
 
 In_set=In_set_file['DL_input']
 Out_set=Out_set_file['DL_output']
@@ -92,7 +89,7 @@ Out_set=Out_set_file['DL_output']
 num_user_tot=In_set.shape[0]
 n_DL_size=[.001,.05,.1,.15,.2,.25,.3,.35,.4,.45,.5,.55,.6,.65,.7]
 count=0
-num_tot_TX=4
+num_tot_TX=2
 num_beams=512
 
 for DL_size_ratio in n_DL_size:
@@ -126,10 +123,7 @@ for DL_size_ratio in n_DL_size:
     loss_fn='mean_squared_error'
     
     # Model training
-    AP_models = train(In_train, Out_train, In_test, Out_test,
-                                          epochs, batch_size,dr,
-                                          num_hidden_layers, nodes_per_layer,
-                                          loss_fn,num_tot_TX,num_beams)
+    AP_models = train(In_train, Out_train, In_test, Out_test, epochs, batch_size,dr, num_hidden_layers, nodes_per_layer, loss_fn,num_tot_TX,num_beams)
     
     # Model running/testing
     DL_Result={}

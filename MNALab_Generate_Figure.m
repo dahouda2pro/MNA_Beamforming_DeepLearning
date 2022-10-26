@@ -22,7 +22,7 @@ num_sampled_OFDM=size(DeepMIMO_dataset{1}.user{1}.channel, 3);    % Number of OF
 num_beams=prod(params.num_ant_BS)*over_sampling_x*over_sampling_y*over_sampling_z;
 
 % ------------ Plotting Deep Learning Outputs ----------------------------
-num_DL_size_points=15; 
+num_DL_size_points=2; 
 BW=params.bandwidth*1e9;                                     % Bandwidth in Hz
 
 % Reading the output of the DL code
