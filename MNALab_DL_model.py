@@ -6,9 +6,9 @@ from scipy.io import loadmat, savemat
 import matplotlib.pyplot as plt
 
 # Model training function
-def train(In_train, Out_train, In_test, Out_test, epochs, batch_size,dr, num_hidden_layers, nodes_per_layer, loss_fn,n_BS,n_beams):
+def train(X_train, y_train, X_test, y_test, epochs, batch_size,dr, num_hidden_layers, nodes_per_layer, loss_fn,n_BS,n_beams):
     
-    in_shp = list(In_train.shape[1:])
+    in_shp = list(X_train.shape[1:])
 
     AP_models = []
     plot = 0
@@ -33,12 +33,12 @@ def train(In_train, Out_train, In_test, Out_test, epochs, batch_size,dr, num_hid
         if not os.path.exists(filepath):
             os.makedirs(filepath)
 
-        history = model.fit(In_train,
-                            Out_train[:, idx:idx + n_beams],
+        history = model.fit(X_train,
+                            y_train[:, idx:idx + n_beams],
                             batch_size=batch_size,
                             epochs=epochs,
                             verbose=2,
-                            validation_data=(In_test, Out_test[:,idx:idx + n_beams]),
+                            validation_data=(X_test, y_test[:,idx:idx + n_beams]),
                             callbacks = [
                                 keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=True, mode='auto'),
                                 keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, verbose=0, mode='auto')
@@ -107,11 +107,11 @@ for DL_size_ratio in n_DL_size:
     rem_index = set(range(0,num_user_tot))-set(train_index)
     test_index= list(set(np.random.choice(list(rem_index), size=num_test, replace=False)))
     
-    In_train = In_set[train_index]
-    In_test =  In_set[test_index] 
+    X_train = In_set[train_index]
+    X_test =  In_set[test_index] 
         
-    Out_train = Out_set[train_index]
-    Out_test = Out_set[test_index]
+    y_train = Out_set[train_index]
+    y_test = Out_set[test_index]
     
     
     # Learning model parameters
@@ -119,19 +119,19 @@ for DL_size_ratio in n_DL_size:
     batch_size = 100  
     dr = 0.05                  # dropout rate  
     num_hidden_layers=4
-    nodes_per_layer=In_train.shape[1]
+    nodes_per_layer=X_train.shape[1]
     loss_fn='mean_squared_error'
     
     # Model training
-    AP_models = train(In_train, Out_train, In_test, Out_test, epochs, batch_size,dr, num_hidden_layers, nodes_per_layer, loss_fn,num_tot_TX,num_beams)
+    AP_models = train(X_train, y_train, X_test, y_test, epochs, batch_size,dr, num_hidden_layers, nodes_per_layer, loss_fn,num_tot_TX,num_beams)
     
     # Model running/testing
     DL_Result={}
     for idx in range(0,num_tot_TX,1): 
-        beams_predicted=AP_models[idx].predict( In_test, batch_size=10, verbose=0)
+        beams_predicted=AP_models[idx].predict( X_test, batch_size=10, verbose=0)
     
         DL_Result['TX'+str(idx+1)+'Pred_Beams']=beams_predicted
-        DL_Result['TX'+str(idx+1)+'Opt_Beams']=Out_test[:,idx*num_beams:(idx+1)*num_beams]
+        DL_Result['TX'+str(idx+1)+'Opt_Beams']=y_test[:,idx*num_beams:(idx+1)*num_beams]
 
     DL_Result['user_index']=test_index
     savemat('MNALab_DLBeam_code_output/DL_Result' + str(count) + '.mat', DL_Result)
