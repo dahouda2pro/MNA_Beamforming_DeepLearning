@@ -115,7 +115,7 @@ for DL_size_ratio in n_DL_size:
     
     
     # Learning model parameters
-    epochs = 10  
+    epochs = 100  
     batch_size = 100  
     dr = 0.05                  # dropout rate  
     num_hidden_layers=4

@@ -3,9 +3,9 @@
 params.scenario = 'O1_60';          % The adopted ray tracing scenario [check the available scenarios at https://deepmimo.net/scenarios/]
 params.scene_first = 1;
 params.scene_last = 1;
-params.active_BS = [3, 4];             % Includes the numbers of the active BSs (values from 1-18 for 'O1')(check the scenario description at https://deepmimo.net/scenarios/ for the BS numbers) 
+params.active_BS = [7, 15];             % Includes the numbers of the active BSs (values from 1-18 for 'O1')(check the scenario description at https://deepmimo.net/scenarios/ for the BS numbers) 
 params.active_user_first = 1000;       % The first row of the considered user section (check the scenario description for the user row map)
-params.active_user_last = 1300;        % The last row of the considered user section (check the scenario description for the user row map)
+params.active_user_last = 1100;        % The last row of the considered user section (check the scenario description for the user row map)
 params.row_subsampling = 1;         % Randomly select round(row_subsampling*(active_user_last-params.active_user_first)) rows
 params.user_subsampling = 1;        % Randomly select round(user_subsampling*number_of_users_in_row) users in each row
 params.num_ant_BS = [1, 32, 8];      % Number of antenna elements for the BS arrays in the x,y,z-axes
