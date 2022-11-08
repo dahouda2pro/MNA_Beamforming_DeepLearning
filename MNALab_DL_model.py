@@ -111,6 +111,12 @@ for DL_size_ratio in n_DL_size:
     y_train = Out_set[train_index]
     y_test = Out_set[test_index]
     
+    print("X Train:", X_train.shape)
+    print("X Test:", X_test.shape)
+    print("y Train:", y_train.shape)
+    print("y Test:", y_test.shape)
+
+    
     # Learning model parameters
     epochs = 25
     batch_size = 100  
