@@ -5,6 +5,20 @@ from keras.layers import Dense,Dropout
 from scipy.io import loadmat, savemat
 import matplotlib.pyplot as plt
 
+# Reading input and output sets generated from MATLAB
+In_set_file=loadmat('MNALab_DLBeam_dataset/DLCB_input.mat')
+Out_set_file=loadmat('MNALab_DLBeam_dataset/DLCB_output.mat')
+
+In_set=In_set_file['DL_input']
+Out_set=Out_set_file['DL_output']
+
+# Parameter initialization
+num_user_tot=In_set.shape[0]
+n_DL_size=[.001,.05,.1,.15,.2,.25,.3,.35,.4,.45,.5,.55,.6,.65,.7]
+count=0
+num_tot_TX=2
+num_beams=512
+
 # Model training function
 def train(X_train, y_train, X_test, y_test, epochs, batch_size,dr, num_hidden_layers, nodes_per_layer, loss_fn,n_BS,n_beams):
     
@@ -28,7 +42,6 @@ def train(X_train, y_train, X_test, y_test, epochs, batch_size,dr, num_hidden_la
         model.summary()
         
         filepath = r'C:/Users/MWAMBA/MNA_Beamforming_DeepLearning/MNALab_DLBeam_code_output/Results_mmWave_ML_BS' + idx_str
-        
         
         if not os.path.exists(filepath):
             os.makedirs(filepath)
@@ -75,22 +88,7 @@ def train(X_train, y_train, X_test, y_test, epochs, batch_size,dr, num_hidden_la
         plt.savefig('Figure_LossAcc/Loss_Acc_'+str(plot)+'.png')
         plot = plot + 1
         
-        
     return AP_models
-
-# Reading input and output sets generated from MATLAB
-In_set_file=loadmat('MNALab_DLBeam_dataset/DLCB_input.mat')
-Out_set_file=loadmat('MNALab_DLBeam_dataset/DLCB_output.mat')
-
-In_set=In_set_file['DL_input']
-Out_set=Out_set_file['DL_output']
-
-# Parameter initialization
-num_user_tot=In_set.shape[0]
-n_DL_size=[.001,.05,.1,.15,.2,.25,.3,.35,.4,.45,.5,.55,.6,.65,.7]
-count=0
-num_tot_TX=2
-num_beams=512
 
 for DL_size_ratio in n_DL_size:
     
@@ -113,9 +111,8 @@ for DL_size_ratio in n_DL_size:
     y_train = Out_set[train_index]
     y_test = Out_set[test_index]
     
-    
     # Learning model parameters
-    epochs = 10  
+    epochs = 25
     batch_size = 100  
     dr = 0.05                  # dropout rate  
     num_hidden_layers=4

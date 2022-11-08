@@ -2,7 +2,7 @@
 % ---------------------------------------------------------------------- %
 
 % addpath('../DeepMIMOv2/DeepMIMO_functions') % DeepMIMO functions folder
-addpath(genpath('E:\Datasets\DeepMIMOv2\DeepMIMOv2'))
+addpath(genpath('./DeepMIMOv2'))
 addpath('./BF_codebook/')
 params = read_params('MNALab_parameters.m');
 [DeepMIMO_dataset, params] = DeepMIMO_generator(params);
