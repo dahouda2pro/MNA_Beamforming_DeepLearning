@@ -73,7 +73,7 @@ def train(X_train, y_train, X_test, y_test, epochs, batch_size,dr, num_hidden_la
         plt.plot(range(0,len(epoch_val_loss)), epoch_val_loss, 'r-', linewidth=2, label='Test Loss')
         plt.xlabel("Epochs")
         plt.ylabel("Loss")
-        plt.title('Evolution of loss on train & test datasets over epochs')
+        plt.title('Evolution of loss on train & validation sets over epochs')
         plt.legend(loc='best')
 
         plt.subplot(1,2,2)
@@ -81,7 +81,7 @@ def train(X_train, y_train, X_test, y_test, epochs, batch_size,dr, num_hidden_la
         plt.plot(range(0,len(epoch_val_mae)), epoch_val_mae, 'r-', linewidth=2,label='Test Acc')
         plt.xlabel("Epochs")
         plt.ylabel("Accuracy")
-        plt.title('Evolution of Accuracy on train & test datasets over epochs')
+        plt.title('Evolution of Accuracy on Train & Validation sets over epochs')
         plt.legend(loc='best')
 
         #plt.show()
